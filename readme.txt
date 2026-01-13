@@ -1,76 +1,81 @@
+Building instructions for the DLL versions of Zlib 1.3.1
+========================================================
 
-This directory contains a Pascal (Delphi, Kylix) interface to the
-zlib data compression library.
+This directory contains projects that build zlib and minizip using
+Microsoft Visual C++ 9.0/10.0.
 
+You don't need to build these projects yourself. You can download the
+binaries from:
+  http://www.winimage.com/zLibDll
 
-Directory listing
-=================
-
-zlibd32.mak     makefile for Borland C++
-example.pas     usage example of zlib
-zlibpas.pas     the Pascal interface to zlib
-readme.txt      this file
-
-
-Compatibility notes
-===================
-
-- Although the name "zlib" would have been more normal for the
-  zlibpas unit, this name is already taken by Borland's ZLib unit.
-  This is somehow unfortunate, because that unit is not a genuine
-  interface to the full-fledged zlib functionality, but a suite of
-  class wrappers around zlib streams.  Other essential features,
-  such as checksums, are missing.
-  It would have been more appropriate for that unit to have a name
-  like "ZStreams", or something similar.
-
-- The C and zlib-supplied types int, uInt, long, uLong, etc. are
-  translated directly into Pascal types of similar sizes (Integer,
-  LongInt, etc.), to avoid namespace pollution.  In particular,
-  there is no conversion of unsigned int into a Pascal unsigned
-  integer.  The Word type is non-portable and has the same size
-  (16 bits) both in a 16-bit and in a 32-bit environment, unlike
-  Integer.  Even if there is a 32-bit Cardinal type, there is no
-  real need for unsigned int in zlib under a 32-bit environment.
-
-- Except for the callbacks, the zlib function interfaces are
-  assuming the calling convention normally used in Pascal
-  (__pascal for DOS and Windows16, __fastcall for Windows32).
-  Since the cdecl keyword is used, the old Turbo Pascal does
-  not work with this interface.
-
-- The gz* function interfaces are not translated, to avoid
-  interfacing problems with the C runtime library.  Besides,
-    gzprintf(gzFile file, const char *format, ...)
-  cannot be translated into Pascal.
+More information can be found at this site.
 
 
-Legal issues
-============
 
-The zlibpas interface is:
-  Copyright (C) 1995-2003 Jean-loup Gailly and Mark Adler.
-  Copyright (C) 1998 by Bob Dellaca.
-  Copyright (C) 2003 by Cosmin Truta.
 
-The example program is:
-  Copyright (C) 1995-2003 by Jean-loup Gailly.
-  Copyright (C) 1998,1999,2000 by Jacques Nomssi Nzali.
-  Copyright (C) 2003 by Cosmin Truta.
 
-  This software is provided 'as-is', without any express or implied
-  warranty.  In no event will the author be held liable for any damages
-  arising from the use of this software.
+Build instructions for Visual Studio 2008 (32 bits or 64 bits)
+--------------------------------------------------------------
+- Decompress current zlib, including all contrib/* files
+- Open contrib\vstudio\vc9\zlibvc.sln with Microsoft Visual C++ 2008
+- Or run: vcbuild /rebuild contrib\vstudio\vc9\zlibvc.sln "Release|Win32"
 
-  Permission is granted to anyone to use this software for any purpose,
-  including commercial applications, and to alter it and redistribute it
-  freely, subject to the following restrictions:
+Build instructions for Visual Studio 2010 (32 bits or 64 bits)
+--------------------------------------------------------------
+- Decompress current zlib, including all contrib/* files
+- Open contrib\vstudio\vc10\zlibvc.sln with Microsoft Visual C++ 2010
 
-  1. The origin of this software must not be misrepresented; you must not
-     claim that you wrote the original software. If you use this software
-     in a product, an acknowledgment in the product documentation would be
-     appreciated but is not required.
-  2. Altered source versions must be plainly marked as such, and must not be
-     misrepresented as being the original software.
-  3. This notice may not be removed or altered from any source distribution.
+Build instructions for Visual Studio 2012 (32 bits or 64 bits)
+--------------------------------------------------------------
+- Decompress current zlib, including all contrib/* files
+- Open contrib\vstudio\vc11\zlibvc.sln with Microsoft Visual C++ 2012
 
+Build instructions for Visual Studio 2013 (32 bits or 64 bits)
+--------------------------------------------------------------
+- Decompress current zlib, including all contrib/* files
+- Open contrib\vstudio\vc12\zlibvc.sln with Microsoft Visual C++ 2013
+
+Build instructions for Visual Studio 2015 (32 bits or 64 bits)
+--------------------------------------------------------------
+- Decompress current zlib, including all contrib/* files
+- Open contrib\vstudio\vc14\zlibvc.sln with Microsoft Visual C++ 2015
+
+Build instructions for Visual Studio 2022 (64 bits)
+--------------------------------------------------------------
+- Decompress current zlib, including all contrib/* files
+- Open contrib\vstudio\vc143\zlibvc.sln with Microsoft Visual C++ 2022
+
+
+
+Important
+---------
+- To use zlibwapi.dll in your application, you must define the
+  macro ZLIB_WINAPI when compiling your application's source files.
+
+
+Additional notes
+----------------
+- This DLL, named zlibwapi.dll, is compatible to the old zlib.dll built
+  by Gilles Vollant from the zlib 1.1.x sources, and distributed at
+    http://www.winimage.com/zLibDll
+  It uses the WINAPI calling convention for the exported functions, and
+  includes the minizip functionality. If your application needs that
+  particular build of zlib.dll, you can rename zlibwapi.dll to zlib.dll.
+
+- The new DLL was renamed because there exist several incompatible
+  versions of zlib.dll on the Internet.
+
+- There is also an official DLL build of zlib, named zlib1.dll. This one
+  is exporting the functions using the CDECL convention. See the file
+  win32\DLL_FAQ.txt found in this zlib distribution.
+
+- There used to be a ZLIB_DLL macro in zlib 1.1.x, but now this symbol
+  has a slightly different effect. To avoid compatibility problems, do
+  not define it here.
+
+
+Gilles Vollant
+info@winimage.com
+
+Visual Studio 2013, 2015, and 2022 Projects from Sean Hunt
+seandhunt_7@yahoo.com
